@@ -1,0 +1,18 @@
+{
+    "name": "sqids/sqids-ext",
+    "type": "library",
+    "description": "The most complete Sqids IDE stubs library which enables autocompletion in modern IDEs.",
+    "require": {
+        "php": ">=7.4",
+        "ext-gmp": "*",
+        "ext-sqids": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sqids\\": "ide-stubs/src/"
+        }
+    }
+}

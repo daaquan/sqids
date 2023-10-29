@@ -53,6 +53,21 @@ $id = $sqids->encode([1, 2, 3]); // "86Rf07"
 $numbers = $sqids->decode($id); // [1, 2, 3]
 ```
 
+4. テスト
+
+```bash
+composer install
+
+./vendor/bin/phpunit ide-stubs/tests
+PHPUnit 9.6.13 by Sebastian Bergmann and contributors.
+
+............................................                      44 / 44 (100%)
+
+Time: 00:00.055, Memory: 20.00 MB
+
+OK (44 tests, 280 assertions)
+```
+
 ### ドキュメント
 
 詳しいドキュメントやAPIの詳細は https://sqids.org/php で参照できます。
