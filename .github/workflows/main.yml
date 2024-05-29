@@ -33,7 +33,7 @@ jobs:
         if: success()
         run: |
           composer install
-          php -d extension=sqids ./vendor/bin/pest ide-stubs/tests
+          php -d extension=sqids ./vendor/bin/phpunit ide-stubs/tests
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
