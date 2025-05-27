@@ -28,22 +28,14 @@ ZEPHIR_INIT_CLASS(sqids_0__closure)
 PHP_METHOD(sqids_0__closure, __invoke)
 {
 	zval alphabetChars, *c, c_sub;
-	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&alphabetChars);
 	ZVAL_UNDEF(&c_sub);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_ZVAL(c)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
 	zephir_read_static_property_ce(&alphabetChars, sqids_0__closure_ce, SL("alphabetChars"), PH_NOISY_CC);
 	zephir_fetch_params_without_memory_grow(1, 0, &c);
-
-
 	RETURN_BOOL(zephir_fast_in_array(c, &alphabetChars));
 }
 

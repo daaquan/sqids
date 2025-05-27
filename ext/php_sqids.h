@@ -14,7 +14,7 @@
 #define PHP_SQIDS_VERSION     "0.0.1"
 #define PHP_SQIDS_EXTNAME     "sqids"
 #define PHP_SQIDS_AUTHOR      "Phalcon Team"
-#define PHP_SQIDS_ZEPVERSION  "0.17.0-9f99da6"
+#define PHP_SQIDS_ZEPVERSION  "0.19.0-$Id$"
 #define PHP_SQIDS_DESCRIPTION ""
 
 

@@ -82,7 +82,6 @@ PHP_METHOD(Sqids_Sqids, __construct)
 	ZVAL_UNDEF(&_19$$13);
 	ZVAL_UNDEF(&_20$$14);
 	ZVAL_UNDEF(&blocklist);
-#if PHP_VERSION_ID >= 80000
 	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(0, 3)
 		Z_PARAM_OPTIONAL
@@ -90,10 +89,8 @@ PHP_METHOD(Sqids_Sqids, __construct)
 		Z_PARAM_LONG(minLength)
 		Z_PARAM_ARRAY_OR_NULL(blocklist)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 0, 3, &alphabet_param, &minLength_param, &blocklist_param);
 	if (!alphabet_param) {
 		ZEPHIR_INIT_VAR(&alphabet);
@@ -103,15 +100,12 @@ PHP_METHOD(Sqids_Sqids, __construct)
 	if (!minLength_param) {
 		minLength = 0;
 	} else {
-		minLength = zephir_get_intval(minLength_param);
-	}
+		}
 	if (!blocklist_param) {
 		ZEPHIR_INIT_VAR(&blocklist);
 	} else {
 		zephir_get_arrval(&blocklist, blocklist_param);
 	}
-
-
 	if (ZEPHIR_IS_NULL(&blocklist)) {
 		ZEPHIR_INIT_VAR(&_0$$3);
 		zephir_create_array(&_0$$3, 563, 0);
@@ -1914,7 +1908,7 @@ PHP_METHOD(Sqids_Sqids, __construct)
 	ZEPHIR_CALL_METHOD(&_21, this_ptr, "shuffle", NULL, 0, &alphabet);
 	zephir_check_call_status();
 	zephir_update_property_zval(this_ptr, ZEND_STRL("alphabet"), &_21);
-	ZEPHIR_INIT_ZVAL_NREF(_22);
+	ZVAL_UNDEF(&_22);
 	ZVAL_LONG(&_22, minLength);
 	zephir_update_property_zval(this_ptr, ZEND_STRL("minLength"), &_22);
 	zephir_update_property_zval(this_ptr, ZEND_STRL("blocklist"), &filteredBlocklist);
@@ -1945,19 +1939,13 @@ PHP_METHOD(Sqids_Sqids, encode)
 	ZVAL_UNDEF(&_1$$4);
 	ZVAL_UNDEF(&_2$$4);
 	ZVAL_UNDEF(&_3$$4);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_ARRAY(numbers)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 1, 0, &numbers_param);
 	zephir_get_arrval(&numbers, numbers_param);
-
-
 	if (zephir_fast_count_int(&numbers) == 0) {
 		RETURN_MM_STRING("");
 	}
@@ -2064,26 +2052,19 @@ PHP_METHOD(Sqids_Sqids, encodeNumbers)
 	ZVAL_UNDEF(&_58$$11);
 	ZVAL_UNDEF(&_60$$11);
 	ZVAL_UNDEF(&_61$$12);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(1, 2)
 		Z_PARAM_ARRAY(numbers)
 		Z_PARAM_OPTIONAL
 		Z_PARAM_LONG(increment)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 1, 1, &numbers_param, &increment_param);
 	zephir_get_arrval(&numbers, numbers_param);
 	if (!increment_param) {
 		increment = 0;
 	} else {
-		increment = zephir_get_intval(increment_param);
-	}
-
-
+		}
 	zephir_read_property(&_0, this_ptr, ZEND_STRL("alphabet"), PH_NOISY_CC | PH_READONLY);
 	if (increment > zephir_fast_strlen_ev(&_0)) {
 		ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_InvalidArgumentException, "Reached max attempts to re-generate the ID", "sqids/Sqids.zep", 121);
@@ -2327,19 +2308,13 @@ PHP_METHOD(Sqids_Sqids, decode)
 	ZVAL_UNDEF(&_21$$9);
 	ZVAL_UNDEF(&_22$$9);
 	ZVAL_UNDEF(&_24$$11);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_STR(id)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 1, 0, &id_param);
 	zephir_get_strval(&id, id_param);
-
-
 	ZEPHIR_INIT_VAR(&ret);
 	array_init(&ret);
 	if (ZEPHIR_IS_STRING(&id, "")) {
@@ -2448,7 +2423,6 @@ PHP_METHOD(Sqids_Sqids, shuffle)
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zval *alphabet_param = NULL, i, j, r, temp, chars, numChars, indices, _0, _1, *_2, _3, _4$$3, _5$$3, _6$$3, _7$$3, _9$$3, _10$$3, _11$$3, _12$$3, _13$$5, _14$$5, _15$$5, _16$$5, _17$$5, _18$$5, _19$$5, _20$$5;
 	zval alphabet;
-	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&alphabet);
 	ZVAL_UNDEF(&i);
@@ -2477,19 +2451,13 @@ PHP_METHOD(Sqids_Sqids, shuffle)
 	ZVAL_UNDEF(&_18$$5);
 	ZVAL_UNDEF(&_19$$5);
 	ZVAL_UNDEF(&_20$$5);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_STR(alphabet)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 1, 0, &alphabet_param);
 	zephir_get_strval(&alphabet, alphabet_param);
-
-
 	ZEPHIR_CALL_FUNCTION(&chars, "str_split", NULL, 15, &alphabet);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&numChars);
@@ -2602,21 +2570,14 @@ PHP_METHOD(Sqids_Sqids, toId)
 	ZVAL_UNDEF(&_5$$3);
 	ZVAL_UNDEF(&alphabet);
 	ZVAL_UNDEF(&idParts);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(num)
 		Z_PARAM_STR(alphabet)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 2, 0, &num_param, &alphabet_param);
-	num = zephir_get_intval(num_param);
 	zephir_get_strval(&alphabet, alphabet_param);
-
-
 	ZEPHIR_CALL_FUNCTION(&chars, "str_split", NULL, 15, &alphabet);
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&numberOfChars);
@@ -2672,21 +2633,15 @@ PHP_METHOD(Sqids_Sqids, toNumber)
 	ZVAL_UNDEF(&_4$$3);
 	ZVAL_UNDEF(&_5$$3);
 	ZVAL_UNDEF(&_6$$3);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_STR(id)
 		Z_PARAM_STR(alphabet)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 2, 0, &id_param, &alphabet_param);
 	zephir_get_strval(&id, id_param);
 	zephir_get_strval(&alphabet, alphabet_param);
-
-
 	ZEPHIR_CALL_FUNCTION(&chars, "str_split", &_0, 15, &alphabet);
 	zephir_check_call_status();
 	ZEPHIR_CALL_FUNCTION(&idArray, "str_split", &_0, 15, &id);
@@ -2744,19 +2699,13 @@ PHP_METHOD(Sqids_Sqids, isBlockedId)
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3$$3);
 	ZVAL_UNDEF(&_5$$6);
-#if PHP_VERSION_ID >= 80000
-	bool is_null_true = 1;
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_STR(id)
 	ZEND_PARSE_PARAMETERS_END();
-#endif
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 	zephir_fetch_params(1, 1, 0, &id_param);
 	zephir_get_strval(&id, id_param);
-
-
 	ZEPHIR_INIT_VAR(&idLower);
 	zephir_fast_strtolower(&idLower, &id);
 	zephir_read_property(&_0, this_ptr, ZEND_STRL("blocklist"), PH_NOISY_CC | PH_READONLY);
@@ -2826,14 +2775,12 @@ PHP_METHOD(Sqids_Sqids, getMathExtension)
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
 	zend_long ZEPHIR_LAST_CALL_STATUS;
 	zephir_fcall_cache_entry *_2 = NULL;
-	zval *this_ptr = getThis();
 
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_3);
-
-
-	ZEPHIR_MM_GROW();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
 
 	ZEPHIR_INIT_VAR(&_0);
 	ZVAL_STRING(&_0, "gmp");
