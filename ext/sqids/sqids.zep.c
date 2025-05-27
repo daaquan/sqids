@@ -2613,11 +2613,12 @@ PHP_METHOD(Sqids_Sqids, toId)
 
 PHP_METHOD(Sqids_Sqids, toNumber)
 {
-	zend_bool _1;
+	zend_string *_4;
+	zend_ulong _3;
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
-	zend_long ZEPHIR_LAST_CALL_STATUS, _2, _3;
-	zephir_fcall_cache_entry *_0 = NULL, *_7 = NULL;
-	zval *id_param = NULL, *alphabet_param = NULL, chars, idArray, result, i, v, number, _8, _4$$3, _5$$3, _6$$3;
+	zend_long ZEPHIR_LAST_CALL_STATUS;
+	zephir_fcall_cache_entry *_0 = NULL, *_8 = NULL;
+	zval *id_param = NULL, *alphabet_param = NULL, chars, idArray, result, i, v, number, *_1, _2, _12, _5$$3, _6$$3, _7$$3, _9$$4, _10$$4, _11$$4;
 	zval id, alphabet;
 	zval *this_ptr = getThis();
 
@@ -2629,10 +2630,14 @@ PHP_METHOD(Sqids_Sqids, toNumber)
 	ZVAL_UNDEF(&i);
 	ZVAL_UNDEF(&v);
 	ZVAL_UNDEF(&number);
-	ZVAL_UNDEF(&_8);
-	ZVAL_UNDEF(&_4$$3);
+	ZVAL_UNDEF(&_2);
+	ZVAL_UNDEF(&_12);
 	ZVAL_UNDEF(&_5$$3);
 	ZVAL_UNDEF(&_6$$3);
+	ZVAL_UNDEF(&_7$$3);
+	ZVAL_UNDEF(&_9$$4);
+	ZVAL_UNDEF(&_10$$4);
+	ZVAL_UNDEF(&_11$$4);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_STR(id)
 		Z_PARAM_STR(alphabet)
@@ -2648,36 +2653,58 @@ PHP_METHOD(Sqids_Sqids, toNumber)
 	zephir_check_call_status();
 	ZEPHIR_INIT_VAR(&result);
 	ZVAL_LONG(&result, 0);
-	_3 = (zephir_fast_count_int(&idArray) - 1);
-	_2 = 0;
-	_1 = 0;
-	if (_2 <= _3) {
-		while (1) {
-			if (_1) {
-				_2++;
-				if (!(_2 <= _3)) {
-					break;
-				}
-			} else {
-				_1 = 1;
-			}
+	zephir_is_iterable(&idArray, 0, "sqids/Sqids.zep", 271);
+	if (Z_TYPE_P(&idArray) == IS_ARRAY) {
+		ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(&idArray), _3, _4, _1)
+		{
 			ZEPHIR_INIT_NVAR(&i);
-			ZVAL_LONG(&i, _2);
-			ZEPHIR_OBS_NVAR(&v);
-			zephir_array_fetch(&v, &idArray, &i, PH_NOISY, "sqids/Sqids.zep", 267);
-			zephir_read_property(&_4$$3, this_ptr, ZEND_STRL("math"), PH_NOISY_CC | PH_READONLY);
-			ZVAL_LONG(&_5$$3, zephir_fast_count_int(&chars));
-			ZEPHIR_CALL_METHOD(&number, &_4$$3, "multiply", NULL, 0, &result, &_5$$3);
-			zephir_check_call_status();
+			if (_4 != NULL) { 
+				ZVAL_STR_COPY(&i, _4);
+			} else {
+				ZVAL_LONG(&i, _3);
+			}
+			ZEPHIR_INIT_NVAR(&v);
+			ZVAL_COPY(&v, _1);
 			zephir_read_property(&_5$$3, this_ptr, ZEND_STRL("math"), PH_NOISY_CC | PH_READONLY);
-			ZEPHIR_CALL_FUNCTION(&_6$$3, "array_search", &_7, 25, &v, &chars);
+			ZVAL_LONG(&_6$$3, zephir_fast_count_int(&chars));
+			ZEPHIR_CALL_METHOD(&number, &_5$$3, "multiply", NULL, 0, &result, &_6$$3);
 			zephir_check_call_status();
-			ZEPHIR_CALL_METHOD(&result, &_5$$3, "add", NULL, 0, &number, &_6$$3);
+			zephir_read_property(&_6$$3, this_ptr, ZEND_STRL("math"), PH_NOISY_CC | PH_READONLY);
+			ZEPHIR_CALL_FUNCTION(&_7$$3, "array_search", &_8, 25, &v, &chars);
+			zephir_check_call_status();
+			ZEPHIR_CALL_METHOD(&result, &_6$$3, "add", NULL, 0, &number, &_7$$3);
+			zephir_check_call_status();
+		} ZEND_HASH_FOREACH_END();
+	} else {
+		ZEPHIR_CALL_METHOD(NULL, &idArray, "rewind", NULL, 0);
+		zephir_check_call_status();
+		while (1) {
+			ZEPHIR_CALL_METHOD(&_2, &idArray, "valid", NULL, 0);
+			zephir_check_call_status();
+			if (!zend_is_true(&_2)) {
+				break;
+			}
+			ZEPHIR_CALL_METHOD(&i, &idArray, "key", NULL, 0);
+			zephir_check_call_status();
+			ZEPHIR_CALL_METHOD(&v, &idArray, "current", NULL, 0);
+			zephir_check_call_status();
+				zephir_read_property(&_9$$4, this_ptr, ZEND_STRL("math"), PH_NOISY_CC | PH_READONLY);
+				ZVAL_LONG(&_10$$4, zephir_fast_count_int(&chars));
+				ZEPHIR_CALL_METHOD(&number, &_9$$4, "multiply", NULL, 0, &result, &_10$$4);
+				zephir_check_call_status();
+				zephir_read_property(&_10$$4, this_ptr, ZEND_STRL("math"), PH_NOISY_CC | PH_READONLY);
+				ZEPHIR_CALL_FUNCTION(&_11$$4, "array_search", &_8, 25, &v, &chars);
+				zephir_check_call_status();
+				ZEPHIR_CALL_METHOD(&result, &_10$$4, "add", NULL, 0, &number, &_11$$4);
+				zephir_check_call_status();
+			ZEPHIR_CALL_METHOD(NULL, &idArray, "next", NULL, 0);
 			zephir_check_call_status();
 		}
 	}
-	zephir_read_property(&_8, this_ptr, ZEND_STRL("math"), PH_NOISY_CC | PH_READONLY);
-	ZEPHIR_RETURN_CALL_METHOD(&_8, "intval", NULL, 0, &result);
+	ZEPHIR_INIT_NVAR(&v);
+	ZEPHIR_INIT_NVAR(&i);
+	zephir_read_property(&_12, this_ptr, ZEND_STRL("math"), PH_NOISY_CC | PH_READONLY);
+	ZEPHIR_RETURN_CALL_METHOD(&_12, "intval", NULL, 0, &result);
 	zephir_check_call_status();
 	RETURN_MM();
 }
@@ -2709,7 +2736,7 @@ PHP_METHOD(Sqids_Sqids, isBlockedId)
 	ZEPHIR_INIT_VAR(&idLower);
 	zephir_fast_strtolower(&idLower, &id);
 	zephir_read_property(&_0, this_ptr, ZEND_STRL("blocklist"), PH_NOISY_CC | PH_READONLY);
-	zephir_is_iterable(&_0, 0, "sqids/Sqids.zep", 292);
+	zephir_is_iterable(&_0, 0, "sqids/Sqids.zep", 291);
 	if (Z_TYPE_P(&_0) == IS_ARRAY) {
 		ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(&_0), _1)
 		{
@@ -2808,7 +2835,7 @@ PHP_METHOD(Sqids_Sqids, getMathExtension)
 
 		RETURN_MM();
 	}
-	ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Missing math extension for Sqids, install either bcmath or gmp.", "sqids/Sqids.zep", 309);
+	ZEPHIR_THROW_EXCEPTION_DEBUG_STR(spl_ce_RuntimeException, "Missing math extension for Sqids, install either bcmath or gmp.", "sqids/Sqids.zep", 308);
 	return;
 }
 

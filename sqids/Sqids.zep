@@ -263,8 +263,7 @@ class Sqids implements SqidsInterface
         let idArray = str_split(id);
         let result = 0;
 
-        for i in range(0, count(idArray) - 1) {
-            let v = idArray[i];
+        for i, v in idArray {
             let number = this->math->multiply(result, count(chars));
             let result = this->math->add(number, array_search(v, chars));
         }
