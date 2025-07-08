@@ -1,0 +1,42 @@
+name: Build Zephir Extension
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  install-from-build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '8.2' ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: pecl
+
+      - name: Install from ext/ directory
+        run: |
+          cd ext/
+          zephir fullclean && zephir build
+          sudo ./install
+
+      - name: Validate extension
+        if: success()
+        run: |
+          composer install
+          php -d extension=sqids ./vendor/bin/phpunit --configuration ide-stubs/phpunit.xml.dist
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension
+          path: ext/modules/sqids.so
