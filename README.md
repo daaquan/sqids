@@ -61,3 +61,14 @@ All tests should pass and verify the behaviour of the extension.
 ## Documentation
 
 More documentation and API details are available at <https://sqids.org/php>.
+
+## Publishing to PECL
+
+A basic `package.xml` file is provided to simplify creating releases.
+Generate the release archive using:
+
+```bash
+pear package
+```
+
+Upload the resulting `.tgz` file on [PECL](https://pecl.php.net/).

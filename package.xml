@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.10.12" version="2.0"
+         xmlns="http://pear.php.net/dtd/package-2.0"
+         xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd
+                             http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>sqids</name>
+ <channel>pecl.php.net</channel>
+ <summary>PHP extension implementing the Sqids algorithm.</summary>
+ <description>
+  Generate short, unique IDs from numbers using the Sqids algorithm. Built with Zephir.
+ </description>
+ <lead>
+  <name>daaquan</name>
+  <user>daaquan</user>
+  <email>daaquan@users.noreply.github.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2025-07-08</date>
+ <time>00:00:00</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="https://opensource.org/licenses/MIT">MIT</license>
+ <notes>
+  Initial PECL release.
+ </notes>
+ <contents>
+  <dir name="/">
+   <file role="src" name="config.m4" />
+   <file role="src" name="config.w32" />
+   <file role="doc" name="README.md" />
+   <dir name="ext">
+    <file role="src" name="php_sqids.h" />
+    <file role="src" name="sqids.c" />
+   </dir>
+   <dir name="sqids">
+    <file role="src" name="Sqids.zep" />
+   </dir>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>7.4</min>
+   </php>
+   <pearinstaller>
+    <min>1.10.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <providesextension>sqids</providesextension>
+ <extsrcrelease/>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="https://opensource.org/licenses/MIT">MIT</license>
+   <notes>Initial release</notes>
+  </release>
+ </changelog>
+</package>
