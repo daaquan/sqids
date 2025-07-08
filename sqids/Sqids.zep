@@ -121,8 +121,10 @@ class Sqids implements SqidsInterface
             throw new InvalidArgumentException("Reached max attempts to re-generate the ID");
         }
 
+        // Calculate an offset based on input numbers to randomize the alphabet.
         let offset = count(numbers);
         for i,v in numbers {
+            // Mix current number and its position into the offset
             let z = (int)(v % strlen(this->alphabet));
             let offset += ord(substr(this->alphabet, z, 1)) + i;
         }
@@ -135,8 +137,10 @@ class Sqids implements SqidsInterface
 
         let numbersCount = count(numbers);
         for i,num in numbers {
+            // Convert the number to ID characters using the shuffled alphabet
             let ret[] = this->toId(num, substr(alphabet, 1));
             if i < numbersCount - 1 {
+                // Add a separator character between numbers and re-shuffle
                 let ret[] = substr(alphabet, 0, 1),
                     alphabet = this->shuffle(alphabet);
             }
@@ -144,6 +148,7 @@ class Sqids implements SqidsInterface
 
         let id = implode("", ret);
         if this->minLength > strlen(id) {
+            // Pad the ID to satisfy the minimum length requirement
             let id .= substr(alphabet, 0, 1);
             while this->minLength - strlen(id) > 0 {
                 let alphabet = this->shuffle(alphabet),
@@ -152,6 +157,7 @@ class Sqids implements SqidsInterface
         }
 
         if this->isBlockedId(id) {
+            // Regenerate the ID if it matches a blocked word
             let id = this->encodeNumbers(numbers, increment + 1);
         }
 
@@ -220,6 +226,7 @@ class Sqids implements SqidsInterface
                 break;
             }
 
+            // Pseudo-randomly swap characters in the alphabet
             let j = indices[numChars - i - 1],
                 r = (i * j + ord(chars[i]) + ord(chars[j])) % numChars;
             let temp = chars[i];
@@ -242,6 +249,7 @@ class Sqids implements SqidsInterface
         let idParts = [];
 
         do {
+            // Map the numeric value into the alphabet
             let index = this->math->intval(this->math->mod(result, numberOfChars));
             // In Zephir, appending to the end of the array is done using []
             let idParts[] = chars[index];
@@ -264,10 +272,12 @@ class Sqids implements SqidsInterface
         let result = 0;
 
         for i, v in idArray {
+            // Multiply the current result by the base and add the index of the current character
             let number = this->math->multiply(result, count(chars));
             let result = this->math->add(number, array_search(v, chars));
         }
 
+        // Cast the resulting value to a PHP integer
         return this->math->intval(result);
     }
 
@@ -279,10 +289,12 @@ class Sqids implements SqidsInterface
         for word in this->blocklist {
             let word = strtolower(word);
 
+            // Check if the ID starts or ends with a blocked word
             if starts_with(idLower, word) || ends_with(idLower, word) {
                 return true;
             }
 
+            // Check if the blocked word appears anywhere in the ID
             let pos = strpos(idLower, word);
             if pos !== false {
                 return true;
@@ -297,14 +309,17 @@ class Sqids implements SqidsInterface
      */
     protected function getMathExtension() -> <MathInterface>
     {
+        // Prefer the GMP extension when available
         if extension_loaded("gmp") {
             return new Gmp();
         }
 
+        // Fallback to BCMath if GMP is not installed
         if extension_loaded("bcmath") {
             return new BCMath();
         }
 
+        // Fail when no supported math extension is present
         throw new RuntimeException("Missing math extension for Sqids, install either bcmath or gmp.");
     }
 }

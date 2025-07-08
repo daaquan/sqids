@@ -1,5 +1,8 @@
 <?php
 
+// This file provides IDE auto-completion hints only.
+// The real functionality lives inside the Sqids extension written in Zephir.
+
 namespace Sqids;
 
 use Sqids\Math\BCMath;

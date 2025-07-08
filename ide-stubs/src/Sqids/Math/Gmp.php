@@ -1,5 +1,7 @@
 <?php
 
+// Stub file for the GMP implementation used by IDEs.
+
 namespace Sqids\Math;
 
 /**

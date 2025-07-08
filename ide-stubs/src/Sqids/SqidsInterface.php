@@ -1,5 +1,7 @@
 <?php
 
+// Interface stub file for IDE support. Implementation is provided by the Sqids extension.
+
 namespace Sqids;
 
 /**

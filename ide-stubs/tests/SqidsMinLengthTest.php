@@ -19,6 +19,7 @@ class SqidsMinLengthTest extends TestCase
 {
     public function testSimple()
     {
+        // Minimum length equal to alphabet size
         $sqids = new Sqids('', strlen(Sqids::DEFAULT_ALPHABET));
 
         $numbers = [1, 2, 3];
@@ -30,6 +31,7 @@ class SqidsMinLengthTest extends TestCase
 
     public function testIncremental()
     {
+        // Increasing the minimum length should pad the ID accordingly
         $alphabetLength = strlen(Sqids::DEFAULT_ALPHABET);
 
         $numbers = [1, 2, 3];
@@ -59,6 +61,7 @@ class SqidsMinLengthTest extends TestCase
 
     public function testIncrementalNumbers()
     {
+        // Encoding numbers with padding enabled
         $sqids = new Sqids('', strlen(Sqids::DEFAULT_ALPHABET));
 
         $ids = [
@@ -82,6 +85,7 @@ class SqidsMinLengthTest extends TestCase
 
     public function testMinLengths()
     {
+        // Try a variety of min lengths and inputs
         $sqids = new Sqids();
 
         foreach ([0, 1, 5, 10, strlen(Sqids::DEFAULT_ALPHABET)] as $minLength) {
@@ -105,12 +109,14 @@ class SqidsMinLengthTest extends TestCase
 
     public function testOutOfRangeInvalidMinLengthLower()
     {
+        // Negative minimum length is not allowed
         $this->expectException(InvalidArgumentException::class);
         new Sqids('', -1);
     }
 
     public function testOutOfRangeInvalidMinLengthUpper()
     {
+        // Minimum length above 255 should throw
         $this->expectException(InvalidArgumentException::class);
         new Sqids('', 256);
     }

@@ -1,5 +1,7 @@
 <?php
 
+// Stub file for the BCMath implementation used by IDEs.
+
 namespace Sqids\Math;
 
 /**

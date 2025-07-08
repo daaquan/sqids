@@ -19,6 +19,7 @@ class SqidsBlocklistTest extends TestCase
 {
     public function testIfNoCustomBlocklistParamUseDefaultBlocklist()
     {
+        // Default blocklist should be used when none is provided
         $sqids = new Sqids();
 
         $this->assertSame([4572721], $sqids->decode('aho1e'));
@@ -27,6 +28,7 @@ class SqidsBlocklistTest extends TestCase
 
     public function testIfEmptyBlocklistParamPassedDontUseAnyBlocklist()
     {
+        // An empty array disables blocklist filtering
         $sqids = new Sqids('', 0, []);
 
         $this->assertSame([4572721], $sqids->decode('aho1e'));
@@ -35,6 +37,7 @@ class SqidsBlocklistTest extends TestCase
 
     public function testIfNonEmptyBlocklistParamPassedUseOnlyThat()
     {
+        // Only the provided blocklist words should be filtered
         $sqids = new Sqids('', 0, [
             'ArUO' // originally encoded [100000]
         ]);
@@ -51,6 +54,7 @@ class SqidsBlocklistTest extends TestCase
 
     public function testBlocklist()
     {
+        // Ensure multiple blocked words are respected during encoding
         $sqids = new Sqids('', 0, [
             'JSwXFaosAN', // normal result of 1st encoding, let's block that word on purpose
             'OCjV9JK64o', // result of 2nd encoding
@@ -65,6 +69,7 @@ class SqidsBlocklistTest extends TestCase
 
     public function testDecodingBlocklistWordsShouldStillWork()
     {
+        // Decoding should not fail even if the input is on the blocklist
         $sqids = new Sqids('', 0, ['86Rf07', 'se8ojk', 'ARsz1p', 'Q8AI49', '5sQRZO']);
 
         $this->assertSame([1, 2, 3], $sqids->decode('86Rf07'));
@@ -76,12 +81,14 @@ class SqidsBlocklistTest extends TestCase
 
     public function testMatchAgainstAShortBlocklistWord()
     {
+        // Short blocklist words should not cause issues with encoding
         $sqids = new Sqids('', 0, ['pnd']);
         $this->assertSame([1000], $sqids->decode($sqids->encode([1000])));
     }
 
     public function testBlocklistFilteringInConstructor()
     {
+        // Blocklist is normalized according to the provided alphabet
         // lowercase blocklist in only-uppercase alphabet
         $sqids = new Sqids('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 0, ['sxnzkl']);
 
@@ -94,6 +101,7 @@ class SqidsBlocklistTest extends TestCase
 
     public function testMaxEncodingAttempts()
     {
+        // Throw an exception when all possible shuffled variants are blocked
         $alphabet = 'abc';
         $minLength = 3;
         $blocklist = ['cab', 'abc', 'bca'];

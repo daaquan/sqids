@@ -1,5 +1,7 @@
 <?php
 
+// Interface stub for math classes used by the Sqids extension.
+
 namespace Sqids\Math;
 
 /**

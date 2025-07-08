@@ -19,6 +19,7 @@ class SqidsEncodingTest extends TestCase
 {
     public function testSimple()
     {
+        // Encode and decode a simple sequence of numbers
         $sqids = new Sqids();
 
         $numbers = [1, 2, 3];
@@ -30,6 +31,7 @@ class SqidsEncodingTest extends TestCase
 
     public function testDifferentInputs()
     {
+        // Ensure encoding works with a diverse set of numbers
         $sqids = new Sqids();
 
         $numbers = [0, 0, 0, 1, 2, 3, 100, 1000, 100000, 1000000, PHP_INT_MAX];
@@ -38,6 +40,7 @@ class SqidsEncodingTest extends TestCase
 
     public function testIncrementalNumbers()
     {
+        // Numbers from 0-9 should encode to specific values
         $sqids = new Sqids();
 
         $ids = [
@@ -61,6 +64,7 @@ class SqidsEncodingTest extends TestCase
 
     public function testIncrementalNumbersSameIndex0()
     {
+        // First value fixed at zero, increment the second
         $sqids = new Sqids();
 
         $ids = [
@@ -84,6 +88,7 @@ class SqidsEncodingTest extends TestCase
 
     public function testIncrementalNumbersSameIndex1()
     {
+        // Second value fixed at zero, increment the first
         $sqids = new Sqids();
 
         $ids = [
@@ -107,6 +112,7 @@ class SqidsEncodingTest extends TestCase
 
     public function testMultiInput()
     {
+        // Large list of sequential numbers
         $sqids = new Sqids();
 
         $numbers = range(0, 99);
@@ -116,24 +122,28 @@ class SqidsEncodingTest extends TestCase
 
     public function testEncodingNoNumbers()
     {
+        // Empty array should produce an empty ID
         $sqids = new Sqids();
         $this->assertSame('', $sqids->encode([]));
     }
 
     public function testDecodingEmptyString()
     {
+        // Decoding an empty ID returns an empty array
         $sqids = new Sqids();
         $this->assertSame([], $sqids->decode(''));
     }
 
     public function testDecodingAnIdWithAnInvalidCharacter()
     {
+        // Invalid characters result in an empty array
         $sqids = new Sqids();
         $this->assertSame([], $sqids->decode('*'));
     }
 
     public function testEncodeOutOfRangeNumbersLower()
     {
+        // Throw when a number is lower than zero
         $this->expectException(InvalidArgumentException::class);
 
         $sqids = new Sqids();
