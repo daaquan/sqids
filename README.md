@@ -1,73 +1,63 @@
-# Sqids
+# Sqids PHP Extension
 
-`sqids-php`を`Zephir`に変換したライブラリーです。PHPの拡張機能として提供されています。
+This repository contains a PHP extension built with **Zephir** that implements the [Sqids](https://sqids.org) algorithm. Sqids generates short, unique and seemingly random IDs from arrays of integers.
 
-### Zephirとは
+## About Zephir
 
-Zephir は、PHPの拡張機能を容易に作成し、維持するために設計されたオープンソースの高レベルなプログラミング言語です。
+[Zephir](https://docs.zephir-lang.com/0.12/en/welcome) is an open source language designed to make it easy to create and maintain PHP extensions.
 
-https://docs.zephir-lang.com/0.12/en/welcome
+## About Sqids
 
-### Sqidsとは
+Sqids is a tiny library for generating short unique IDs from numbers. Think of it as base conversion with additional features.
 
-Sqidsは、数字から短くてユニークでランダムに見えるIDを生成できる小さなオープンソースライブラリです。
-考え方としては、十進数から十六進数への変換器のようなものですが、いくつかの追加機能があります✨
+See the [FAQ](https://sqids.org/faq) for more details.
 
-https://sqids.org/faq
+### When to use Sqids
 
-### Sqidsは何に良いですか？
+- Link shorteners
+- Unique event IDs in logs
+- Short codes for text messages
+- Generating friend codes
 
-リンクの短縮、ログ用のユニークなイベントIDの生成、オブジェクト用のIDの生成、テキストメッセージ用の短いIDの生成、フレンドコードの生成などに適しています。
+Sqids is **not** meant for sensitive data because the IDs can be decoded back to the original numbers.
 
-### Sqidsは何に向いていないですか？
+## Building and Installing
 
-機密性の高いデータ。生成されたIDはハッシュではなく、数字に戻してデコードすることができます。たとえば、デコードするとアプリのユーザーカウントが明らかになる可能性があるため、ユーザーIDには良い選択ではないかもしれません。
-
-## インストール
-
-### コンパイルとインストール
-
-1. Zephir インストーラーを使用して、ソースコードから拡張をコンパイルします。
+1. Build the extension from source using `phpize` and `make` (Zephir is only required when regenerating the C sources):
 
 ```bash
-zephir fullclean
-
-zephir build
+phpize
+./configure --enable-sqids
+make
+sudo make install
 ```
 
-2. php.ini に以下の行を追加して、拡張機能を有効にします。
+2. Enable the extension by adding the following line to your `php.ini` or using a dedicated `.ini` file:
 
 ```ini
 extension=sqids.so
 ```
 
-3. 使い方
-
-この拡張の基本的な使い方
+## Usage
 
 ```php
 <?php
-
 $sqids = new \Sqids\Sqids();
 $id = $sqids->encode([1, 2, 3]); // "86Rf07"
 $numbers = $sqids->decode($id); // [1, 2, 3]
 ```
 
-4. テスト
+## Running Tests
+
+Install the development dependencies with Composer and execute PHPUnit:
 
 ```bash
 composer install
-
 ./vendor/bin/phpunit ide-stubs/tests
-PHPUnit 9.6.13 by Sebastian Bergmann and contributors.
-
-............................................                      44 / 44 (100%)
-
-Time: 00:00.055, Memory: 20.00 MB
-
-OK (44 tests, 280 assertions)
 ```
 
-### ドキュメント
+All tests should pass and verify the behaviour of the extension.
 
-詳しいドキュメントやAPIの詳細は https://sqids.org/php で参照できます。
+## Documentation
+
+More documentation and API details are available at <https://sqids.org/php>.
