@@ -1,5 +1,5 @@
 {
-    "name": "sqids/sqids-ext",
+    "name": "daaquan/sqids-ext",
     "type": "library",
     "description": "The most complete Sqids IDE stubs library which enables autocompletion in modern IDEs.",
     "require": {
