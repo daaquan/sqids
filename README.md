@@ -72,3 +72,18 @@ pear package
 ```
 
 Upload the resulting `.tgz` file on [PECL](https://pecl.php.net/).
+
+## Building with Docker
+
+The repository contains a `Dockerfile` that compiles and installs the
+extension inside an Alpine based PHP image. Build the image with:
+
+```bash
+docker build -t php-with-sqids .
+```
+
+Run the container and verify that the extension loads correctly:
+
+```bash
+docker run --rm php-with-sqids php -m | grep sqids
+```
