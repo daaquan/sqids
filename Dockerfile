@@ -1,8 +1,10 @@
-FROM php:8.3-cli-alpine
+FROM php:8.4-cli
 
 # Install build dependencies and prepare the source
-RUN apk add --no-cache --virtual .build-deps \
-        autoconf gcc g++ make php8-dev linux-headers gmp-dev \
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    autoconf \
+    libgmp-dev \
     && docker-php-source extract
 
 # Copy extension sources
@@ -20,6 +22,9 @@ COPY ./php.ini /usr/local/etc/php/conf.d/sqids.ini
 
 # Cleanup build dependencies
 RUN docker-php-source delete \
-    && apk del .build-deps
+    && apt-get remove --purge -y autoconf gcc g++ make php-dev linux-headers \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 CMD ["php", "-a"]
